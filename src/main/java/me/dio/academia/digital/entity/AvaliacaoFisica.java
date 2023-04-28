@@ -2,15 +2,7 @@ package me.dio.academia.digital.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,37 +14,26 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "tb_avaliacoes")
 public class AvaliacaoFisica {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "aluno_id")
-  private Aluno aluno;
-
-  private LocalDateTime dataDaAvaliacao = LocalDateTime.now();
-
-  @Column(name="peso_atual")
-  private double peso;
-
-  @Column(name="altura_atual")
-  private double altura;
-
-public void setAluno(Aluno aluno2) {
-}
-
-public LocalDateTime getDataDaAvaliacao() {
-  return dataDaAvaliacao;
-}
-
-public void setDataDaAvaliacao(LocalDateTime dataDaAvaliacao) {
-  this.dataDaAvaliacao = dataDaAvaliacao;
-}
-
-public void setAluno(Object peso2) {
-}
-
-public void setAltura(Object altura2) {
-}
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aluno_id")
+    private Aluno aluno;
+    
+    @Column(name = "data_da_avaliacao", columnDefinition = "TIMESTAMP")
+    private LocalDateTime dataDaAvaliacao;
+    
+    private double peso;
+    
+    private double altura;
+    
+    public AvaliacaoFisica(Aluno aluno, double peso, double altura) {
+        this.aluno = aluno;
+        this.peso = peso;
+        this.altura = altura;
+        this.dataDaAvaliacao = LocalDateTime.now();
+    }
 }

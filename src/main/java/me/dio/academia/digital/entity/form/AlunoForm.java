@@ -1,11 +1,8 @@
-package me.dio.academia.digital.entity.form;
+package me.dio.academia.digital.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,37 +11,24 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlunoForm {
+@Entity
+@Table(name = "tb_matriculas")
+public class Matricula {
 
-  @NotEmpty(message = "Preencha o campo corretamente.")
-  @Size(min = 3, max =50, message = "'${validatedValue}' precisa estar entre {min} e {max} caracteres.")
-  private String nome;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  @NotEmpty(message = "Preencha o campo corretamente.")
-  //@CPF(message = "'${validatedValue}' é inválido!")
-  private String cpf;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "aluno_id")
+  private Aluno aluno;
 
-  @NotEmpty(message = "Preencha o campo corretamente.")
-  @Size(min = 3, max =50, message = "'${validatedValue}' precisa estar entre {min} e {max} caracteres.")
-  private String bairro;
+  @Column(name = "data_da_matricula", columnDefinition = "TIMESTAMP")
+  private LocalDateTime dataDaMatricula = LocalDateTime.now();
 
-  @NotNull(message = "Prencha o campo corretamente.")
-  @Past(message = "Data '${validatedValue}' é inválida.")
-  private LocalDate dataDeNascimento;
+  public Matricula(Aluno aluno) {
+      this.aluno = aluno;
+  }
 
-public Object getNome() {
-    return null;
-}
-
-public Object getCpf() {
-    return null;
-}
-
-public Object getBairro() {
-    return null;
-}
-
-public Object getDataDeNascimento() {
-    return null;
-}
+  // Removido getters e setters desnecessários
 }

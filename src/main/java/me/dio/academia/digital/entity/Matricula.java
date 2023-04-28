@@ -22,16 +22,18 @@ public class Matricula {
   @JoinColumn(name = "aluno_id")
   private Aluno aluno;
 
+  @Column(name = "data_da_matricula")
   private LocalDateTime dataDaMatricula = LocalDateTime.now();
 
-public void setAluno(Aluno aluno2) {
-}
+  public Matricula(Aluno aluno) {
+      this.aluno = aluno;
+  }
 
-public LocalDateTime getDataDaMatricula() {
-  return dataDaMatricula;
-}
+  public LocalDateTime getDataDaMatricula() {
+      return dataDaMatricula;
+  }
 
-public void setDataDaMatricula(LocalDateTime dataDaMatricula) {
-  this.dataDaMatricula = dataDaMatricula;
-}
+  public void setDataDaMatricula(LocalDateTime dataDaMatricula) {
+      this.dataDaMatricula = dataDaMatricula;
+  }
 }

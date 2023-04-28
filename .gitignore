@@ -1,10 +1,19 @@
+# Arquivos e diretórios que devem ser ignorados pelo Git
+
+# Arquivo HELP.md
 HELP.md
+
+# Diretório target/
 target/
+
+# Maven Wrapper
 !.mvn/wrapper/maven-wrapper.jar
+
+# Diretórios target/ dentro de src/main/ e src/test/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+# Arquivos gerados pelo STS
 .apt_generated
 .classpath
 .factorypath
@@ -13,21 +22,23 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
+# Arquivos gerados pelo IntelliJ IDEA
 .idea
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# Diretórios gerados pelo NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+# Diretórios build/ dentro de src/main/ e src/test/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# Diretório .vscode/
 .vscode/

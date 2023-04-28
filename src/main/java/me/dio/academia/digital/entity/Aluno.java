@@ -1,15 +1,13 @@
 package me.dio.academia.digital.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -19,46 +17,33 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Aluno {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private String nome;
+    @Column(nullable = false)
+    private String nome;
 
-  @Column(unique = true)
-  private String cpf;
+    @Column(nullable = false, unique = true)
+    private String cpf;
 
-  private String bairro;
+    private String bairro;
 
-  private LocalDate dataDeNascimento;
+    @Column(nullable = false)
+    private LocalDate dataDeNascimento;
 
-  @OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY)
-  @JsonIgnore
-  private List<AvaliacaoFisica> avaliacoes = new ArrayList<>();
+    @OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<AvaliacaoFisica> avaliacoes = new ArrayList<>();
 
-  public String getNome() {
-    return nome;
-  }
+    public void addAvaliacao(AvaliacaoFisica avaliacao) {
+        avaliacoes.add(avaliacao);
+        avaliacao.setAluno(this);
+    }
 
-  public LocalDate getDataDeNascimento() {
-    return dataDeNascimento;
-  }
-
-  public void setDataDeNascimento(LocalDate dataDeNascimento) {
-    this.dataDeNascimento = dataDeNascimento;
-  }
-
-  public String getBairro() {
-    return bairro;
-  }
-
-  public void setBairro(String bairro) {
-    this.bairro = bairro;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
+    public void removeAvaliacao(AvaliacaoFisica avaliacao) {
+        avaliacoes.remove(avaliacao);
+        avaliacao.setAluno(null);
+    }
 
 }

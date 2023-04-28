@@ -2,35 +2,16 @@ package me.dio.academia.digital.entity.form;
 
 import java.time.LocalDate;
 
-public class AlunoUpdateForm {
-
-  private String nome;
-
-  private String bairro;
-
-  private LocalDate dataDeNascimento;
-
+public record AlunoUpdateForm(String nome, String bairro, LocalDate dataDeNascimento) {
+  
   public LocalDate getDataDeNascimento() {
     return dataDeNascimento;
-  }
-
-  public String getNome() {
-    return nome;
-  }
+}
 
   public void setNome(String nome) {
-    this.nome = nome;
-  }
+    throw new UnsupportedOperationException("Cannot set nome in AlunoUpdateForm");
+}
 
-  public String getBairro() {
-    return bairro;
-  }
-
-  public void setBairro(String bairro) {
-    this.bairro = bairro;
-  }
-
-  public void setDataDeNascimento(LocalDate dataDeNascimento) {
-    this.dataDeNascimento = dataDeNascimento;
-  }
+public void setBairro(String bairro) {
+    throw new UnsupportedOperationException("Cannot set bairro in AlunoUpdateForm");
 }
